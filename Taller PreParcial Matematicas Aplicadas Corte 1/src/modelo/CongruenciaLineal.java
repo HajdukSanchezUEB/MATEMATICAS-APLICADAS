@@ -2,30 +2,18 @@ package modelo;
 
 public class CongruenciaLineal {
 
-	int k, b, c, x, a, m, numeroIteraciones;
+	private int m = 16;
+	private int c = 85;
+	private int a = 9;
+	private int k = 2;
+	private int x0, xN;
 
-	public int getNumeroIteraciones() {
-		return numeroIteraciones;
+	public int getM() {
+		return m;
 	}
 
-	public void setNumeroIteraciones(int numeroIteraciones) {
-		this.numeroIteraciones = numeroIteraciones;
-	}
-
-	public int getK() {
-		return k;
-	}
-
-	public void setK(int k) {
-		this.k = k;
-	}
-
-	public int getB() {
-		return b;
-	}
-
-	public void setB(int b) {
-		this.b = b;
+	public void setM(int m) {
+		this.m = m;
 	}
 
 	public int getC() {
@@ -36,14 +24,6 @@ public class CongruenciaLineal {
 		this.c = c;
 	}
 
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
 	public int getA() {
 		return a;
 	}
@@ -52,33 +32,33 @@ public class CongruenciaLineal {
 		this.a = a;
 	}
 
-	public int getM() {
-		return m;
+	public int getK() {
+		return k;
 	}
 
-	public void setM(int m) {
-		this.m = m;
+	public void setK(int k) {
+		this.k = k;
 	}
 
-	public int mcd(int num1, int num2) {
-		int resto;
-		int numDiv1 = num1;
-		int numDiv2 = num2;
-
-		do {
-			resto = numDiv1 % numDiv2;
-			numDiv1 = numDiv2;
-			if (resto != 0)
-				numDiv2 = resto;
-		} while (resto != 0);
-		System.out.println(numDiv2);
-		return numDiv2;
-		
+	public int getX0() {
+		return x0;
 	}
-	
+
+	public void setX0(int x0) {
+		this.x0 = x0;
+	}
+
+	public int getxN() {
+		return xN;
+	}
+
+	public void setxN(int xN) {
+		this.xN = xN;
+	}
+
 	public int formula() {
-		int result = a*(x+c)%m;
-		x = result;
-		return result;
+		int xJ = (a * (xN + c)) % m;
+		xN = xJ;
+		return xJ;
 	}
 }

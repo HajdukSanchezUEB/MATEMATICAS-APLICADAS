@@ -8,15 +8,15 @@ import vista.Vista;
 public class Controlador {
 
 	private Vista vista;
-	private CongruenciaLineal congruenciaLineal;
+	private CongruenciaLineal modelo_1;
 	private Funcion modelo_2;
 	private Cifrado modelo_5;
 	private String titulo;
 
 	public Controlador() {
-		congruenciaLineal = new CongruenciaLineal();
 		titulo = "Taller Pre-Parcial";
 		vista = new Vista();
+		modelo_1 = new CongruenciaLineal();
 		modelo_2 = new Funcion();
 		modelo_5 = new Cifrado();
 		pedirEjercicio();
@@ -60,33 +60,24 @@ public class Controlador {
 
 	// Ejercicio de número aleatorio con congruencia lineal
 	private void ejercicio1() {
-		congruenciaLineal.setC(Integer.parseInt(vista.recibirValor("Por favor ingrese el valor para la constante C", titulo)));
-		congruenciaLineal.setM(((int) Math.pow(2, Integer.parseInt(vista.recibirValor("Por favor ingrese un valor para b", titulo)))));
-		if (congruenciaLineal.getC() != 0) {
-			if (congruenciaLineal.mcd(congruenciaLineal.getC(), congruenciaLineal.getM()) == 1) {
-				congruenciaLineal.setA(1 + 4 * Integer.parseInt(vista.recibirValor("Por favor ingrese el valor para la constante k", titulo)));
-				congruenciaLineal.setX(Integer.parseInt(vista.recibirValor("Por favor ingrese el valor impar para X", titulo)));
-				congruenciaLineal.setNumeroIteraciones((Integer.parseInt(vista.recibirValor("Por favor ingrese el numero de valores aleatoreos a generar", titulo))));
-
-			} else {
-				vista.mostrarMensaje("Por favor elija un valor valido para c, tal que el mcd entre 2^b y c = 1", titulo);
-				pedirEjercicio();
-			}
-		} else {
-			congruenciaLineal.setA(3 + 8 * Integer.parseInt(vista.recibirValor("Por favor ingrese el valor para la constante k", titulo)));
-			congruenciaLineal.setX(Integer.parseInt(vista.recibirValor("Por favor ingrese el valor impar para X", titulo)));
-			congruenciaLineal.setNumeroIteraciones((Integer.parseInt(vista.recibirValor("Por favor ingrese el numero de valores aleatoreos a generar", titulo))));
+		vista.mostrarMensaje("Se van a utilizar los siguientes valores iniciales:" + "\nm: 16" + "\nc : 85" + "\na: 9", titulo);
+		int x0 = Integer.parseInt(vista.recibirValor("Ingrese el valor de Xo: ", titulo));
+		modelo_1.setX0(x0);
+		int repeticiones = modelo_1.getM();
+		String mensaje = "";
+		for (int i = 0; i < repeticiones; i++) {
+			int xJ = modelo_1.formula();
+			mensaje += "Número " + (i + 1) + " de " + repeticiones + " =  " + xJ + "\n";
 		}
-		for (int i = 0; i < congruenciaLineal.getNumeroIteraciones(); i++) {
-			int result = congruenciaLineal.formula();
-			vista.mostrarMensaje("" + result, titulo);
-		}
-
+		vista.mostrarMensaje("Números aleatorios generados:  \n" + mensaje, titulo);
 	}
 
 	// Ejercicio de número aleatorio con Método de Montecarlo
 	private void ejercicio2() {
-		int puntosTotales = Integer.parseInt(vista.recibirValor("Ingrese el número de puntos que va a utilizar:", titulo));
+		int puntosTotales = 0;
+		do {
+			puntosTotales = Integer.parseInt(vista.recibirValor("Ingrese el número de puntos que va a utilizar para el cálculo (Mínimo 2000):", titulo));
+		} while (puntosTotales < 2000);
 		float x = 0.0f, aleatorio = 0.0f;
 		int puntosDentro = 0, puntosFuera = 0;
 		for (int i = 0; i < puntosTotales; i++) {
