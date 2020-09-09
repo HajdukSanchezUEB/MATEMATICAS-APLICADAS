@@ -76,7 +76,7 @@ public class Controlador {
 			}
 		}
 		double areaBajoCurva = (double) puntosDentro / puntosTotales;
-		String mensaje = "Cantidad de puntos aleatorios: " + puntosTotales + "." + "\nCantidad de puntos adentro del ·rea: " + puntosDentro + "." + "\nCantidad de puntos fuera del ·rea: " + puntosFuera + "." + "\n¡rea estimada bajo la curva: " + areaBajoCurva + " unidades al cuadrado.";
+		String mensaje = "Cantidad de puntos aleatorios: " + puntosTotales + "." + "\nCantidad de puntos dentro del ·rea: " + puntosDentro + "." + "\nCantidad de puntos fuera del ·rea: " + puntosFuera + "." + "\n¡rea estimada bajo la curva: " + areaBajoCurva + " unidades al cuadrado.";
 		vista.mostrarMensaje(mensaje, titulo);
 	}
 
