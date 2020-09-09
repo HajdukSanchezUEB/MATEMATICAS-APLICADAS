@@ -20,7 +20,6 @@ public class Funcion {
 
 	public void setFx(Float x) {
 		fx = (float) (Math.sqrt(9 - ((9 * Math.pow(x, 2)) / 25)));
-		System.out.println(fx);
 	}
 
 }
