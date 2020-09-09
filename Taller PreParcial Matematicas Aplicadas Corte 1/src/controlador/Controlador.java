@@ -1,17 +1,20 @@
 package controlador;
 
 import modelo.Cifrado;
+import modelo.CongruenciaLineal;
 import modelo.Funcion;
 import vista.Vista;
 
 public class Controlador {
 
 	private Vista vista;
+	private CongruenciaLineal congruenciaLineal;
 	private Funcion modelo_2;
 	private Cifrado modelo_5;
 	private String titulo;
 
 	public Controlador() {
+		congruenciaLineal = new CongruenciaLineal();
 		titulo = "Taller Pre-Parcial";
 		vista = new Vista();
 		modelo_2 = new Funcion();
@@ -57,6 +60,27 @@ public class Controlador {
 
 	// Ejercicio de número aleatorio con congruencia lineal
 	private void ejercicio1() {
+		congruenciaLineal.setC(Integer.parseInt(vista.recibirValor("Por favor ingrese el valor para la constante C", titulo)));
+		congruenciaLineal.setM(((int) Math.pow(2, Integer.parseInt(vista.recibirValor("Por favor ingrese un valor para b", titulo)))));
+		if (congruenciaLineal.getC() != 0) {
+			if (congruenciaLineal.mcd(congruenciaLineal.getC(), congruenciaLineal.getM()) == 1) {
+				congruenciaLineal.setA(1 + 4 * Integer.parseInt(vista.recibirValor("Por favor ingrese el valor para la constante k", titulo)));
+				congruenciaLineal.setX(Integer.parseInt(vista.recibirValor("Por favor ingrese el valor impar para X", titulo)));
+				congruenciaLineal.setNumeroIteraciones((Integer.parseInt(vista.recibirValor("Por favor ingrese el numero de valores aleatoreos a generar", titulo))));
+
+			} else {
+				vista.mostrarMensaje("Por favor elija un valor valido para c, tal que el mcd entre 2^b y c = 1", titulo);
+				pedirEjercicio();
+			}
+		} else {
+			congruenciaLineal.setA(3 + 8 * Integer.parseInt(vista.recibirValor("Por favor ingrese el valor para la constante k", titulo)));
+			congruenciaLineal.setX(Integer.parseInt(vista.recibirValor("Por favor ingrese el valor impar para X", titulo)));
+			congruenciaLineal.setNumeroIteraciones((Integer.parseInt(vista.recibirValor("Por favor ingrese el numero de valores aleatoreos a generar", titulo))));
+		}
+		for (int i = 0; i < congruenciaLineal.getNumeroIteraciones(); i++) {
+			int result = congruenciaLineal.formula();
+			vista.mostrarMensaje("" + result, titulo);
+		}
 
 	}
 
@@ -76,7 +100,7 @@ public class Controlador {
 			}
 		}
 		double areaBajoCurva = (double) puntosDentro / puntosTotales;
-		String mensaje = "Cantidad de puntos aleatorios: " + puntosTotales + "." + "\nCantidad de puntos dentro del área: " + puntosDentro + "." + "\nCantidad de puntos fuera del área: " + puntosFuera + "." + "\nÁrea estimada bajo la curva: " + areaBajoCurva + " unidades al cuadrado.";
+		String mensaje = "Cantidad de puntos aleatorios: " + puntosTotales + "." + "\nCantidad de puntos adentro del área: " + puntosDentro + "." + "\nCantidad de puntos fuera del área: " + puntosFuera + "." + "\nÁrea estimada bajo la curva: " + areaBajoCurva + " unidades al cuadrado.";
 		vista.mostrarMensaje(mensaje, titulo);
 	}
 
