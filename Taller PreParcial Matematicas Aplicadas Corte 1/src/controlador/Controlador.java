@@ -64,35 +64,25 @@ public class Controlador {
 	private void ejercicio1() {
 		congruenciaLineal
 				.setC(Integer.parseInt(vista.recibirValor("Por favor ingrese el valor para la constante C", titulo)));
-		congruenciaLineal.setM(
-				((int) Math.pow(2, Integer.parseInt(vista.recibirValor("Por favor ingrese un valor para b", titulo)))));
+		congruenciaLineal.setM(((int) Math.pow(2, Integer.parseInt(vista.recibirValor("Por favor ingrese un valor para b", titulo)))));
 		if (congruenciaLineal.getC() != 0) {
 			if (congruenciaLineal.mcd(congruenciaLineal.getC(), congruenciaLineal.getM()) == 1) {
-				congruenciaLineal.setA(1 + 4 * Integer
-						.parseInt(vista.recibirValor("Por favor ingrese el valor para la constante k", titulo)));
-				congruenciaLineal
-						.setX(Integer.parseInt(vista.recibirValor("Por favor ingrese el valor impar para X", titulo)));
-				congruenciaLineal.setNumeroIteraciones((Integer.parseInt(
-						vista.recibirValor("Por favor ingrese el numero de valores aleatoreos a generar", titulo))));
+				congruenciaLineal.setA(1 + 4 * Integer.parseInt(vista.recibirValor("Por favor ingrese el valor para la constante k", titulo)));
+				congruenciaLineal.setX(Integer.parseInt(vista.recibirValor("Por favor ingrese el valor impar para X", titulo)));
+				congruenciaLineal.setNumeroIteraciones((Integer.parseInt(vista.recibirValor("Por favor ingrese el numero de valores aleatoreos a generar", titulo))));
 
 			} else {
-				vista.mostrarMensaje("Por favor elija un valor valido para c, tal que el mcd entre 2^b y c = 1",
-						titulo);
+				vista.mostrarMensaje("Por favor elija un valor valido para c, tal que el mcd entre 2^b y c = 1",titulo);
 				pedirEjercicio();
 			}
 		} else {
-			congruenciaLineal.setA(3 + 8
-					* Integer.parseInt(vista.recibirValor("Por favor ingrese el valor para la constante k", titulo)));
-			congruenciaLineal
-					.setX(Integer.parseInt(vista.recibirValor("Por favor ingrese el valor impar para X", titulo)));
-			congruenciaLineal.setNumeroIteraciones((Integer.parseInt(
-					vista.recibirValor("Por favor ingrese el numero de valores aleatoreos a generar", titulo))));
+			congruenciaLineal.setA(3 + 8* Integer.parseInt(vista.recibirValor("Por favor ingrese el valor para la constante k", titulo)));
+			congruenciaLineal.setX(Integer.parseInt(vista.recibirValor("Por favor ingrese el valor impar para X", titulo)));
+			congruenciaLineal.setNumeroIteraciones((Integer.parseInt(vista.recibirValor("Por favor ingrese el numero de valores aleatoreos a generar", titulo))));
 		}
-
 		for (int i = 0; i < congruenciaLineal.getNumeroIteraciones(); i++) {
 			int result = congruenciaLineal.formula();
 			vista.mostrarMensaje("" + result, titulo);
-
 		}
 
 	}
