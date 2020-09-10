@@ -113,7 +113,27 @@ public class Controlador {
 
 	// Ejercicio de número primo Criba de Eratóstenes
 	private void ejercicio3() {
-
+		int k = 2;
+		int[] arreglo = new int[199];
+		for (int i = 0; i < arreglo.length; i++) {
+			arreglo[i] = k;
+			k++;
+			System.out.println(arreglo[i]);
+			
+		}
+		int aux = 0;
+		int matriz [][] = new int [14][15];
+		for (int i = 0; i < matriz.length; i++) {
+			for (int j = 0; j < matriz.length; j++) {
+				matriz [i][j] = arreglo[aux];
+				aux ++;
+				System.out.println("["+matriz[i][j]+ "]" );
+			}	
+		}
+		
+		
+		
+		vista.mostarJframe();
 	}
 
 	// Ejercicio áritmética modular con fecha
