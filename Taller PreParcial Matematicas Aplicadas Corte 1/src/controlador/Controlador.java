@@ -110,6 +110,7 @@ public class Controlador {
 
 	// Ejercicio áritmética modular con fecha
 	private void ejercicio4() {
+		
 		vista.mostrarMensaje("Estando el 11 de septiembre del año 1672, un sabio dijo “un acontecimiento sin\r\n" + 
 				"precedentes será presenciado por algunos en exactamente 4176 meses”. ¿A qué fecha se\r\n" + 
 				"refería el sabio?", titulo);
