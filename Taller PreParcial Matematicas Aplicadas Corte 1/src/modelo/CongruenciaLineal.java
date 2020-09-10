@@ -6,7 +6,7 @@ public class CongruenciaLineal {
 	private int c = 85;
 	private int a = 9;
 	private int k = 2;
-	private int x0, xN;
+	private int xN;
 
 	public int getM() {
 		return m;
@@ -40,14 +40,6 @@ public class CongruenciaLineal {
 		this.k = k;
 	}
 
-	public int getX0() {
-		return x0;
-	}
-
-	public void setX0(int x0) {
-		this.x0 = x0;
-	}
-
 	public int getxN() {
 		return xN;
 	}
@@ -56,9 +48,7 @@ public class CongruenciaLineal {
 		this.xN = xN;
 	}
 
-	public int formula() {
-		int xJ = (a * (xN + c)) % m;
-		xN = xJ;
-		return xJ;
+	public int formula(int xN) {
+		return (a * (xN + c)) % m;
 	}
 }
