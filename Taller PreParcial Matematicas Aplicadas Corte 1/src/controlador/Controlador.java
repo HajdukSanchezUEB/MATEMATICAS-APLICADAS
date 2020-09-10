@@ -90,7 +90,7 @@ public class Controlador {
 		int puntosDentro = 0, puntosFuera = 0;
 		for (int i = 0; i < puntosTotales; i++) {
 			x = (float) (Math.random() * 5); // Número aleatorio para x entre 0 y 5
-			aleatorio = (float) (Math.random() * 5); // Número aleatorio hasta el 5
+			aleatorio = (float) (Math.random() * 5); // Número aleatorio entre 0 y 5
 			modelo_2.setX(x);
 			if (aleatorio <= modelo_2.getFx()) {
 				puntosDentro++;
