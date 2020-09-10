@@ -111,7 +111,12 @@ public class Controlador {
 
 	// Ejercicio áritmética modular con fecha
 	private void ejercicio4() {
-
+		vista.mostrarMensaje("Estando el 11 de septiembre del año 1672, un sabio dijo “un acontecimiento sin\r\n" + 
+				"precedentes será presenciado por algunos en exactamente 4176 meses”. ¿A qué fecha se\r\n" + 
+				"refería el sabio?", titulo);
+		vista.mostrarMensaje("Si un año trae doce meses, entonces 4176 mod 12 es igual a : 0"
+				+" Por lo tanto quedariamos en el primer mes del año", titulo);
+		vista.mostrarMensaje("si dividimos 4176 entre 12 nos da 438 que seria el numero de años 8", titulo);
 	}
 
 	// Ejercicio aritmética modular cifrado cesar
