@@ -147,7 +147,7 @@ public class Controlador {
 		
 		vista.mostrarMensaje("Acontinuacion se eliminaran los multiplos del 11", titulo);
 		matriz = numerosPrimos.eliminarMultiplos(matriz, 11);
-		vista.mostrarMensaje("Acontinuacion estos son los numeros primos resultantes", titulo);
+		vista.mostrarMensaje("Estos son los numeros primos resultantes", titulo);
 		vista.mostrarMensaje(numerosPrimos.imprimirMatriz(matriz), titulo);
 	}
 
