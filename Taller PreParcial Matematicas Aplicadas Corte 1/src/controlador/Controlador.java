@@ -3,6 +3,7 @@ package controlador;
 import modelo.Cifrado;
 import modelo.CongruenciaLineal;
 import modelo.Funcion;
+import modelo.NumerosPrimos;
 import vista.Vista;
 
 public class Controlador {
@@ -12,12 +13,15 @@ public class Controlador {
 	private Funcion modelo_2;
 	private Cifrado modelo_5;
 	private String titulo;
+	private NumerosPrimos numerosPrimos;
+
 
 	public Controlador() {
 		vista = new Vista();
 		modelo_1 = new CongruenciaLineal();
 		modelo_2 = new Funcion();
 		modelo_5 = new Cifrado();
+		numerosPrimos = new NumerosPrimos();
 		pedirEjercicio();
 	}
 
@@ -106,26 +110,45 @@ public class Controlador {
 	// Ejercicio de número primo Criba de Eratóstenes
 	private void ejercicio3() {
 		int k = 2;
-		int[] arreglo = new int[199];
+		int[] arreglo = new int[225];
 		for (int i = 0; i < arreglo.length; i++) {
 			arreglo[i] = k;
-			k++;
-			System.out.println(arreglo[i]);
-			
+			k++;	
 		}
 		int aux = 0;
-		int matriz [][] = new int [14][15];
+		int matriz [][] = new int [15][15];
 		for (int i = 0; i < matriz.length; i++) {
 			for (int j = 0; j < matriz.length; j++) {
+				if (aux >= 200) {
+					matriz [i][j] = 0;
+				}
 				matriz [i][j] = arreglo[aux];
 				aux ++;
-				System.out.println("["+matriz[i][j]+ "]" );
 			}	
 		}
+		vista.mostrarMensaje("Estos son los numeros comprendidos entre el 2 y el 200", titulo);
+		vista.mostrarMensaje(numerosPrimos.imprimirMatriz(matriz), titulo);
 		
+		vista.mostrarMensaje("Acontinuacion se eliminaran los multiplos del 2, como lo indica el metodo", titulo);
+		matriz = numerosPrimos.eliminarMultiplos(matriz, 2);
+		vista.mostrarMensaje(numerosPrimos.imprimirMatriz(matriz), titulo);
 		
+		vista.mostrarMensaje("Acontinuacion se eliminaran los multiplos del 3", titulo);
+		matriz = numerosPrimos.eliminarMultiplos(matriz, 3);
+		vista.mostrarMensaje(numerosPrimos.imprimirMatriz(matriz), titulo);
 		
-		vista.mostarJframe();
+		vista.mostrarMensaje("Acontinuacion se eliminaran los multiplos del 5", titulo);
+		matriz = numerosPrimos.eliminarMultiplos(matriz, 5);
+		vista.mostrarMensaje(numerosPrimos.imprimirMatriz(matriz), titulo);
+
+		vista.mostrarMensaje("Acontinuacion se eliminaran los multiplos del 7", titulo);
+		matriz = numerosPrimos.eliminarMultiplos(matriz, 7);
+		vista.mostrarMensaje(numerosPrimos.imprimirMatriz(matriz), titulo);
+		
+		vista.mostrarMensaje("Acontinuacion se eliminaran los multiplos del 11", titulo);
+		matriz = numerosPrimos.eliminarMultiplos(matriz, 11);
+		vista.mostrarMensaje("Acontinuacion estos son los numeros primos resultantes", titulo);
+		vista.mostrarMensaje(numerosPrimos.imprimirMatriz(matriz), titulo);
 	}
 
 	// Ejercicio áritmética modular con fecha
@@ -136,7 +159,9 @@ public class Controlador {
 				"refería el sabio?", titulo);
 		vista.mostrarMensaje("Si un año trae doce meses, entonces 4176 mod 12 es igual a : 0"
 				+" Por lo tanto quedariamos en el primer mes del año", titulo);
-		vista.mostrarMensaje("si dividimos 4176 entre 12 nos da 438 que seria el numero de años 8", titulo);
+		vista.mostrarMensaje("si dividimos 4176 entre 12 nos da 438 que seria el numero de años que sumado con 1672 que fue el año inicial mas 9 meses 11 dias nos da:", titulo);
+		vista.mostrarMensaje("11 de septiembre del 2020", titulo);
+		
 	}
 
 	// Ejercicio aritmética modular cifrado cesar
