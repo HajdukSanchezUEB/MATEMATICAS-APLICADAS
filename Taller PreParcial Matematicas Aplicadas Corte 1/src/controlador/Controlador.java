@@ -8,24 +8,24 @@ import vista.Vista;
 public class Controlador {
 
 	private Vista vista;
-	private CongruenciaLineal congruenciaLineal;
+	private CongruenciaLineal modelo_1;
 	private Funcion modelo_2;
 	private Cifrado modelo_5;
 	private String titulo;
 
 	public Controlador() {
-		congruenciaLineal = new CongruenciaLineal();
-		titulo = "Taller Pre-Parcial";
 		vista = new Vista();
+		modelo_1 = new CongruenciaLineal();
 		modelo_2 = new Funcion();
 		modelo_5 = new Cifrado();
 		pedirEjercicio();
 	}
 
 	private void pedirEjercicio() {
-		vista.mostrarMensaje("Bienvenido al taller Pre-Parcial del primer corte.\nMatemáticas aplicadas.", titulo);
+		vista.mostrarMensaje("Bienvenido al taller Pre-Parcial del primer corte.\nMatemáticas aplicadas.", "Taller Pre-Parcial");
 		int opcion = 0;
 		do {
+			titulo = "Taller Pre-Parcial";
 			opcion = Integer.parseInt(vista.recibirValor("Seleccione el ejercicio a realizar:" + "\n1. Método de congruencia lineal." + "\n2. Método de Montecarlo." + "\n3. Criba de Eratóstenes." + "\n4. Aritmética modular 1." + "\n5. Aritmética modular 2." + "\n6. Salir.", titulo));
 			switch (opcion) {
 			case 1:
@@ -60,33 +60,32 @@ public class Controlador {
 
 	// Ejercicio de número aleatorio con congruencia lineal
 	private void ejercicio1() {
-		congruenciaLineal.setC(Integer.parseInt(vista.recibirValor("Por favor ingrese el valor para la constante C", titulo)));
-		congruenciaLineal.setM(((int) Math.pow(2, Integer.parseInt(vista.recibirValor("Por favor ingrese un valor para b", titulo)))));
-		if (congruenciaLineal.getC() != 0) {
-			if (congruenciaLineal.mcd(congruenciaLineal.getC(), congruenciaLineal.getM()) == 1) {
-				congruenciaLineal.setA(1 + 4 * Integer.parseInt(vista.recibirValor("Por favor ingrese el valor para la constante k", titulo)));
-				congruenciaLineal.setX(Integer.parseInt(vista.recibirValor("Por favor ingrese el valor impar para X", titulo)));
-				congruenciaLineal.setNumeroIteraciones((Integer.parseInt(vista.recibirValor("Por favor ingrese el numero de valores aleatoreos a generar", titulo))));
-
+		vista.mostrarMensaje("Se van a utilizar los siguientes valores iniciales:" + "\nm: 16" + "\nc : 85" + "\na: 9", titulo);
+		int x0 = Integer.parseInt(vista.recibirValor("Ingrese el valor de Xo: ", titulo));
+		int repeticiones = modelo_1.getM();
+		String mensaje = "";
+		int xJ = 0, respuesta = 0;
+		for (int i = 0; i < repeticiones; i++) {
+			if (i == 0) {
+				respuesta = x0;
 			} else {
-				vista.mostrarMensaje("Por favor elija un valor valido para c, tal que el mcd entre 2^b y c = 1", titulo);
-				pedirEjercicio();
+				xJ = respuesta;
+				respuesta = modelo_1.formula(xJ);
 			}
-		} else {
-			congruenciaLineal.setA(3 + 8 * Integer.parseInt(vista.recibirValor("Por favor ingrese el valor para la constante k", titulo)));
-			congruenciaLineal.setX(Integer.parseInt(vista.recibirValor("Por favor ingrese el valor impar para X", titulo)));
-			congruenciaLineal.setNumeroIteraciones((Integer.parseInt(vista.recibirValor("Por favor ingrese el numero de valores aleatoreos a generar", titulo))));
+			mensaje += "Número " + i + " de " + (repeticiones - 1) + " =  " + respuesta + "\n";
 		}
-		for (int i = 0; i < congruenciaLineal.getNumeroIteraciones(); i++) {
-			int result = congruenciaLineal.formula();
-			vista.mostrarMensaje("" + result, titulo);
-		}
-
+		vista.mostrarMensaje("Números aleatorios generados:  \n" + mensaje, titulo);
 	}
 
 	// Ejercicio de número aleatorio con Método de Montecarlo
 	private void ejercicio2() {
-		int puntosTotales = Integer.parseInt(vista.recibirValor("Ingrese el número de puntos que va a utilizar:", titulo));
+		int puntosTotales = 0;
+		do {
+			puntosTotales = Integer.parseInt(vista.recibirValor("Ingrese el número de puntos que va a utilizar para el cálculo (Mínimo 2000):", titulo));
+			if (puntosTotales < 2000) {
+				vista.mostrarMensaje("No ingresó un número valido de puntos.", titulo);
+			}
+		} while (puntosTotales < 2000);
 		float x = 0.0f, aleatorio = 0.0f;
 		int puntosDentro = 0, puntosFuera = 0;
 		for (int i = 0; i < puntosTotales; i++) {
@@ -100,7 +99,7 @@ public class Controlador {
 			}
 		}
 		double areaBajoCurva = (double) puntosDentro / puntosTotales;
-		String mensaje = "Cantidad de puntos aleatorios: " + puntosTotales + "." + "\nCantidad de puntos adentro del área: " + puntosDentro + "." + "\nCantidad de puntos fuera del área: " + puntosFuera + "." + "\nÁrea estimada bajo la curva: " + areaBajoCurva + " unidades al cuadrado.";
+		String mensaje = "Cantidad de puntos aleatorios: " + puntosTotales + "." + "\nCantidad de puntos dentro del área: " + puntosDentro + "." + "\nCantidad de puntos fuera del área: " + puntosFuera + "." + "\nÁrea estimada bajo la curva: " + areaBajoCurva + " unidades al cuadrado.";
 		vista.mostrarMensaje(mensaje, titulo);
 	}
 
@@ -121,15 +120,22 @@ public class Controlador {
 
 	// Ejercicio aritmética modular cifrado cesar
 	private void ejercicio5() {
-		int opcion = Integer.parseInt(vista.recibirValor("Que opción desea realizar:" + "\n1. Encriptar." + "\n2. Desencriptar.", titulo));
-		String frase = vista.recibirValor("Ingrese la palabra: ", titulo);
-		if (opcion == 1) {
-			int x = Integer.parseInt(vista.recibirValor("Ingrese el número (entero) x: ", titulo));
-			modelo_5.encriptarFrase(x, frase);
-		} else if (opcion == 2) {
-			int z = Integer.parseInt(vista.recibirValor("Ingrese el número (entero) z: ", titulo));
-			modelo_5.desencriptarFrase(z, frase);
-		}
+		int opcion = 0;
+		do {
+			opcion = Integer.parseInt(vista.recibirValor("Que opción desea realizar:" + "\n1. Encriptar." + "\n2. Desencriptar.", titulo));
+			if (opcion < 1 || opcion > 2) {
+				vista.mostrarMensaje("No seleccionó una opción valida", titulo);
+			} else {
+				String frase = vista.recibirValor("Ingrese la palabra: ", titulo);
+				if (opcion == 1) {
+					int x = Integer.parseInt(vista.recibirValor("Ingrese el número (entero) x: ", titulo));
+					modelo_5.encriptarFrase(x, frase);
+				} else if (opcion == 2) {
+					int z = Integer.parseInt(vista.recibirValor("Ingrese el número (entero) z: ", titulo));
+					modelo_5.desencriptarFrase(z, frase);
+				}
+			}
+		} while (opcion < 1 || opcion > 2);
 		vista.mostrarMensaje("La frase cifrada es: " + modelo_5.getFrase() + ".", titulo);
 	}
 
