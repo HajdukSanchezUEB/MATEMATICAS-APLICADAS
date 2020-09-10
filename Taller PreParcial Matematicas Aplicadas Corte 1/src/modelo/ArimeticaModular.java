@@ -1,9 +1,11 @@
 package modelo;
 
-public class NumerosPrimos {
+public class ArimeticaModular {
 
 	private int[] arreglo = new int[230];
 	private String resultado;
+	private int modulo = 12; // Meses de un año
+	private int meses;
 
 	public int[] getArreglo() {
 		return arreglo;
@@ -19,6 +21,22 @@ public class NumerosPrimos {
 
 	public void setResultado(String resultado) {
 		this.resultado = resultado;
+	}
+
+	public int getModulo() {
+		return modulo;
+	}
+
+	public void setModulo(int modulo) {
+		this.modulo = modulo;
+	}
+
+	public int getMeses() {
+		return meses;
+	}
+
+	public void setMeses(int meses) {
+		this.meses = meses;
 	}
 
 	public int[][] eliminarMultiplos(int matriz[][], int numero) {
@@ -44,4 +62,18 @@ public class NumerosPrimos {
 		}
 		return resultado;
 	}
+
+	public String calcularFecha(int mesesSumados, int anioInicio, int diaInicio, int mesInicio) {
+		this.meses = mesesSumados;
+		return diaInicio + " / " + (mesInicio + calcularMeses()) + " / " + (anioInicio + calcularAnios());
+	}
+
+	public int calcularMeses() {
+		return meses % modulo;
+	}
+
+	public int calcularAnios() {
+		return (int) meses / modulo;
+	}
+
 }

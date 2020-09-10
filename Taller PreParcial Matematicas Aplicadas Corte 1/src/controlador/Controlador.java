@@ -1,9 +1,9 @@
 package controlador;
 
+import modelo.ArimeticaModular;
 import modelo.Cifrado;
 import modelo.CongruenciaLineal;
 import modelo.Funcion;
-import modelo.NumerosPrimos;
 import vista.Vista;
 
 public class Controlador {
@@ -11,29 +11,28 @@ public class Controlador {
 	private Vista vista;
 	private CongruenciaLineal modelo_1;
 	private Funcion modelo_2;
+	private ArimeticaModular modelo_3_4;
 	private Cifrado modelo_5;
 	private String titulo;
-	private NumerosPrimos numerosPrimos;
-
 
 	public Controlador() {
 		vista = new Vista();
 		modelo_1 = new CongruenciaLineal();
 		modelo_2 = new Funcion();
+		modelo_3_4 = new ArimeticaModular();
 		modelo_5 = new Cifrado();
-		numerosPrimos = new NumerosPrimos();
 		pedirEjercicio();
 	}
 
 	private void pedirEjercicio() {
-		vista.mostrarMensaje("Bienvenido al taller Pre-Parcial del primer corte.\nMatemáticas aplicadas.", "Taller Pre-Parcial");
+		vista.mostrarMensaje("Bienvenido al taller Pre-Parcial del primer corte.\nMATEMÁTICAS APLICADAS." + "\nIntegrantes del grupo:" + "\n\nJorge Andrés Rangel Zapata." + "\nJozek Andrzej Hajduk Sánchez.\n\n", "Taller Pre-Parcial");
 		int opcion = 0;
 		do {
 			titulo = "Taller Pre-Parcial";
 			opcion = Integer.parseInt(vista.recibirValor("Seleccione el ejercicio a realizar:" + "\n1. Método de congruencia lineal." + "\n2. Método de Montecarlo." + "\n3. Criba de Eratóstenes." + "\n4. Aritmética modular 1." + "\n5. Aritmética modular 2." + "\n6. Salir.", titulo));
 			switch (opcion) {
 			case 1:
-				titulo = "Método cingruencia lineal";
+				titulo = "Método congruencia lineal";
 				ejercicio1();
 				break;
 			case 2:
@@ -53,7 +52,7 @@ public class Controlador {
 				ejercicio5();
 				break;
 			case 6:
-				vista.mostrarMensaje("Adios...", "Gracias..");
+				vista.mostrarMensaje("Adios...", titulo);
 				break;
 
 			default:
@@ -110,58 +109,40 @@ public class Controlador {
 	// Ejercicio de número primo Criba de Eratóstenes
 	private void ejercicio3() {
 		int k = 2;
-		int[] arreglo = new int[225];
+		int[] arreglo = new int[200];
 		for (int i = 0; i < arreglo.length; i++) {
 			arreglo[i] = k;
-			k++;	
+			k++;
 		}
 		int aux = 0;
-		int matriz [][] = new int [15][15];
-		for (int i = 0; i < matriz.length; i++) {
-			for (int j = 0; j < matriz.length; j++) {
-				if (aux >= 200) {
-					matriz [i][j] = 0;
-				}
-				matriz [i][j] = arreglo[aux];
-				aux ++;
-			}	
+		int matriz[][] = new int[10][20];
+		for (int i = 0; i < matriz.length; i++) { // Filas
+			for (int j = 0; j < matriz[0].length; j++) { // Columnas
+				matriz[i][j] = arreglo[aux];
+				aux++;
+			}
 		}
-		vista.mostrarMensaje("Estos son los numeros comprendidos entre el 2 y el 200", titulo);
-		vista.mostrarMensaje(numerosPrimos.imprimirMatriz(matriz), titulo);
-		
-		vista.mostrarMensaje("Acontinuacion se eliminaran los multiplos del 2, como lo indica el metodo", titulo);
-		matriz = numerosPrimos.eliminarMultiplos(matriz, 2);
-		vista.mostrarMensaje(numerosPrimos.imprimirMatriz(matriz), titulo);
-		
-		vista.mostrarMensaje("Acontinuacion se eliminaran los multiplos del 3", titulo);
-		matriz = numerosPrimos.eliminarMultiplos(matriz, 3);
-		vista.mostrarMensaje(numerosPrimos.imprimirMatriz(matriz), titulo);
-		
-		vista.mostrarMensaje("Acontinuacion se eliminaran los multiplos del 5", titulo);
-		matriz = numerosPrimos.eliminarMultiplos(matriz, 5);
-		vista.mostrarMensaje(numerosPrimos.imprimirMatriz(matriz), titulo);
-
-		vista.mostrarMensaje("Acontinuacion se eliminaran los multiplos del 7", titulo);
-		matriz = numerosPrimos.eliminarMultiplos(matriz, 7);
-		vista.mostrarMensaje(numerosPrimos.imprimirMatriz(matriz), titulo);
-		
-		vista.mostrarMensaje("Acontinuacion se eliminaran los multiplos del 11", titulo);
-		matriz = numerosPrimos.eliminarMultiplos(matriz, 11);
-		vista.mostrarMensaje("Estos son los numeros primos resultantes", titulo);
-		vista.mostrarMensaje(numerosPrimos.imprimirMatriz(matriz), titulo);
+		vista.mostrarMensaje("Estos son los números comprendidos entre el 2 y el 200:\n\n" + modelo_3_4.imprimirMatriz(matriz), titulo);
+		matriz = modelo_3_4.eliminarMultiplos(matriz, 2);
+		vista.mostrarMensaje("Se eliminaron los múltiplos del 2, como lo indica el método: \n\n" + modelo_3_4.imprimirMatriz(matriz), titulo);
+		matriz = modelo_3_4.eliminarMultiplos(matriz, 3);
+		vista.mostrarMensaje("Se eliminaron los múltiplos del 3, como lo indica el método: \n\n" + modelo_3_4.imprimirMatriz(matriz), titulo);
+		matriz = modelo_3_4.eliminarMultiplos(matriz, 5);
+		vista.mostrarMensaje("Se eliminaron los múltiplos del 5, como lo indica el método: \n\n" + modelo_3_4.imprimirMatriz(matriz), titulo);
+		matriz = modelo_3_4.eliminarMultiplos(matriz, 7);
+		vista.mostrarMensaje("Se eliminaron los múltiplos del 7, como lo indica el método: \n\n" + modelo_3_4.imprimirMatriz(matriz), titulo);
+		matriz = modelo_3_4.eliminarMultiplos(matriz, 11);
+		vista.mostrarMensaje("Se eliminaron los múltiplos del 11, como lo indica el método: \n\n" + modelo_3_4.imprimirMatriz(matriz), titulo);
+		matriz = modelo_3_4.eliminarMultiplos(matriz, 13);
+		vista.mostrarMensaje("Se eliminaron los múltiplos del 13, como lo indica el método: \nEstos son los números primos resultantes:\n\n" + modelo_3_4.imprimirMatriz(matriz), titulo);
 	}
 
 	// Ejercicio áritmética modular con fecha
 	private void ejercicio4() {
-		
-		vista.mostrarMensaje("Estando el 11 de septiembre del año 1672, un sabio dijo “un acontecimiento sin\r\n" + 
-				"precedentes será presenciado por algunos en exactamente 4176 meses”. ¿A qué fecha se\r\n" + 
-				"refería el sabio?", titulo);
-		vista.mostrarMensaje("Si un año trae doce meses, entonces 4176 mod 12 es igual a : 0"
-				+" Por lo tanto quedariamos en el primer mes del año", titulo);
-		vista.mostrarMensaje("si dividimos 4176 entre 12 nos da 438 que seria el numero de años que sumado con 1672 que fue el año inicial mas 9 meses 11 dias nos da:", titulo);
-		vista.mostrarMensaje("11 de septiembre del 2020", titulo);
-		
+		vista.mostrarMensaje("Datos iniciales: " + "\nModulo: 12" + "\nMeses: 4176" + "\nFecha inicial: 11 / 09 / 1672", titulo);
+		int meses = 4176;
+		String fecha = modelo_3_4.calcularFecha(meses, 1672, 11, 9);
+		vista.mostrarMensaje("El sabio se refería a la fecha: \n" + fecha, titulo);
 	}
 
 	// Ejercicio aritmética modular cifrado cesar
