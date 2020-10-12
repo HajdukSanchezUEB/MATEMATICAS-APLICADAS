@@ -4,18 +4,41 @@ import java.util.ArrayList;
 
 public class Poblacion {
 
-	private ArrayList<Individuos> poblacionInicial;
+	private ArrayList<Individuo> individuos;
+	private int tamanoPoblacion;
+	private int numeroHijos;
 
-	public Poblacion(ArrayList<Individuos> poblacionInicial) {
-		this.poblacionInicial = poblacionInicial;
+	public Poblacion(ArrayList<Individuo> individuos, int tamnoPoblacion, int numeroHijos) {
+		this.individuos = individuos;
+		this.tamanoPoblacion = tamnoPoblacion;
+		this.numeroHijos = numeroHijos;
 	}
 
-	public ArrayList<Individuos> getPoblacionInicial() {
-		return poblacionInicial;
+	public Poblacion() {
+
 	}
 
-	public void setPoblacionInicial(ArrayList<Individuos> poblacionInicial) {
-		this.poblacionInicial = poblacionInicial;
+	public ArrayList<Individuo> getIndividuos() {
+		return individuos;
 	}
 
+	public void setIndividuos(ArrayList<Individuo> individuos) {
+		this.individuos = individuos;
+	}
+
+	public int getTamanoPoblacion() {
+		return tamanoPoblacion;
+	}
+
+	public void setTamanoPoblacion(int tamanoPoblacion) {
+		this.tamanoPoblacion = tamanoPoblacion;
+	}
+
+	public int getNumeroHijos() {
+		return numeroHijos;
+	}
+
+	public void setNumeroHijos(int numeroHijos) {
+		this.numeroHijos = numeroHijos;
+	}
 }
