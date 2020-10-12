@@ -11,7 +11,9 @@ public class Seleccion {
 	}
 
 	public void ruleta() {
-
+		for (int j = 0; j < poblacion.getPoblacionInicial().size(); j++) {
+			poblacion.getPoblacionInicial().get(j).getValorIndividuo();						
+		}
 	}
 
 	public void torneoDeterminista() {

@@ -1,3 +1,4 @@
+package view;
 import javax.swing.JOptionPane;
 
 public class Vista {
@@ -7,10 +8,9 @@ public class Vista {
 		int opcion = Integer.parseInt(JOptionPane.showInputDialog("Seleccion una opcion del menu \n"
 				+ "1. Seleccion por ruleta \n" 
 				+ "2. Seleccion por torneo determinista \n"
-				+ "2. Seleccion por torneo probilistico \n"
-				+ "2. Seleccion por muestreo por restos \n"
-				+ "2. Seleccion por muestreo estocastico \n"
-				+ "8. Salir"));
+				+ "3. Seleccion por torneo probilistico \n"
+				+ "4. Seleccion por muestreo por restos \n"
+				));
 		
 		return opcion;
 		
