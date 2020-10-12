@@ -42,7 +42,7 @@ public class Controlador {
 					individuo = new Individuo((i + 1), adpatacion);
 					listaIndividuos.add(individuo);
 				}
-				int numeroHijos = Integer.parseInt(ventana.recibirValor("Ingrese el número de hijos que habrá: "));
+				int numeroHijos = Integer.parseInt(ventana.recibirValor("Ingrese el número de hijos que habrá: " ));
 				poblacion = new Poblacion(listaIndividuos, tamPoblacion, numeroHijos);
 				seleccion = new Seleccion(poblacion);
 				metodoSeleccion();
