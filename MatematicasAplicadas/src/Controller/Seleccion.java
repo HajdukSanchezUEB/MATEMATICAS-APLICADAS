@@ -19,7 +19,9 @@ public class Seleccion {
 	 * Método de selección por ruleta
 	 */
 	public void ruleta() {
-
+//		for (int j = 0; j < poblacion.getPoblacionInicial().size(); j++) {
+//			poblacion.getPoblacionInicial().get(j).getValorIndividuo();						
+//		}
 	}
 
 	/**
