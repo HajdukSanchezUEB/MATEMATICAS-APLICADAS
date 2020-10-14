@@ -6,18 +6,33 @@ import java.util.Random;
 import Model.Individuo;
 import Model.Poblacion;
 
+/**
+ * Esta clase tiene los métodos de selección de individuos
+ *
+ */
 public class Seleccion {
 
+	/**
+	 * Objeto del modelo
+	 */
 	private Poblacion poblacion;
+	/**
+	 * Objeto del modelo para almacenar los individuos seleccionados
+	 */
 	public Poblacion poblacionSeleccionada;
 
+	/**
+	 * Constructor que inicializa la población inicial
+	 * 
+	 * @param poblacion - población inicial
+	 */
 	public Seleccion(Poblacion poblacion) {
 		this.poblacion = poblacion;
 		poblacionSeleccionada = new Poblacion();
 	}
 
 	/**
-	 * Método de selección por ruleta
+	 * Este método realiza la selección por ruleta
 	 */
 	public void ruleta() {
 		double listaRangos[] = new double[poblacion.getIndividuos().size()];
@@ -41,7 +56,7 @@ public class Seleccion {
 		for (int i = 0; i < poblacion.getNumeroHijos(); i++) {
 			Random numAleatorio = new Random();
 			double aleatorio = numAleatorio.nextDouble();
-																							// y
+			// y
 			for (int j = 0; j < poblacion.getIndividuos().size(); j++) {
 				if (j == 0) {
 					if (aleatorio > 0 && aleatorio < listaRangos[j]) {
@@ -49,12 +64,12 @@ public class Seleccion {
 						break;
 					}
 				} else if (j == poblacion.getIndividuos().size()) {
-					if (aleatorio > listaRangos[j-1] && aleatorio < 1) {
+					if (aleatorio > listaRangos[j - 1] && aleatorio < 1) {
 						poblacionSeleccionada.getIndividuos().add(poblacion.getIndividuos().get(i));
 						break;
 					}
 				} else {
-					if (aleatorio > listaRangos[j-1] && aleatorio < listaRangos[j]) {
+					if (aleatorio > listaRangos[j - 1] && aleatorio < listaRangos[j]) {
 						poblacionSeleccionada.getIndividuos().add(poblacion.getIndividuos().get(i));
 						break;
 					}
@@ -64,15 +79,14 @@ public class Seleccion {
 	}
 
 	/**
-	 * Método de selección por torneo determinista
+	 * Este método realiza la selección por torneo determinista
 	 */
 	public void torneoDeterminista() {
 		ArrayList<Individuo> listaIndividuos = new ArrayList<Individuo>();
 		ArrayList<Individuo> listaMejoresIndividuos = new ArrayList<Individuo>();
 		for (int i = 0; i < poblacion.getNumeroHijos(); i++) { // Lo hace los número de hijos que se quieran obtener
 			for (int j = 0; j < 3; j++) {
-				int aleatorio = (int) ((Math.random() * poblacion.getTamanoPoblacion())); // Número aleatorio entre 0 y
-																							// el tamaño de la población
+				int aleatorio = (int) ((Math.random() * poblacion.getTamanoPoblacion())); // Número aleatorio entre 0 y el tamaño de la población
 				listaIndividuos.add(poblacion.getIndividuos().get(aleatorio));
 			}
 			Individuo mejorIndividuo = selecionarMejorHijo(listaIndividuos);
@@ -82,7 +96,7 @@ public class Seleccion {
 	}
 
 	/**
-	 * Selecciona el mejor hijo para el torneo determinista
+	 * Este método selecciona el mejor individuo para el torneo determinista
 	 */
 	private Individuo selecionarMejorHijo(ArrayList<Individuo> individuos) {
 		Individuo mejor = null;
@@ -95,14 +109,14 @@ public class Seleccion {
 	}
 
 	/**
-	 * Método de selección por torneo probabilístico
+	 * Este método realiza la selección por torneo probabilístico
 	 */
 	public void torneoProbabilistico() {
 
 	}
 
 	/**
-	 * Método de selección por restos
+	 * Este método realiza la selección por restos
 	 */
 	public void restos() {
 
