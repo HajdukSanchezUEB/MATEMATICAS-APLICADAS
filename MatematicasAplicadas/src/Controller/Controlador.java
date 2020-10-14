@@ -56,7 +56,7 @@ public class Controlador {
 	private void metodoSeleccion() {
 		int aux = 0;
 		do {
-			int metodo = Integer.parseInt(ventana.recibirValor("Ingrese el método de selección a utilizar: " + "\n 1. Selección por ruleta." + "\n 2. Selección por torneo determinista." + "\n 3. Selección por torneo probabilístico." + "\n 4. Selección por rstos."));
+			int metodo = Integer.parseInt(ventana.recibirValor("Ingrese el método de selección a utilizar: " + "\n 1. Selección por ruleta." + "\n 2. Selección por torneo determinista." + "\n 3. Selección por torneo probabilístico." + "\n 4. Selección por restos."));
 			if (metodo < 1 || metodo > 4) {
 				ventana.mostrarMensaje("Error...\nNo ingresó un método válido. Intente de nuevo.", icono);
 			} else {
@@ -92,7 +92,7 @@ public class Controlador {
 	 */
 	private void mostrarIndividuosSeleccionado(String metodo) {
 		ventana.mostrarMensaje("Los valores ingresados fueron:" + "\n Tamaño de la población: " + poblacion.getTamanoPoblacion() + "\n Número de hijos: " + poblacion.getNumeroHijos() + "\n Método de selección: " + metodo, icono);
-		ventana.mostrarMensaje("Los indivudos seleccionados fueron: " + "\n" + seleccion.poblacionSeleccionada.getIndividuos(), icono);
+		ventana.mostrarMensaje("Los indivudos seleccionados fueron: " + "\n" + seleccion.poblacionSeleccionada.mostrarIndividuos(), icono);
 	}
 
 }

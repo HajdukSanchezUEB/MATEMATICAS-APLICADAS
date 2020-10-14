@@ -15,7 +15,7 @@ public class Poblacion {
 	}
 
 	public Poblacion() {
-
+		individuos = new ArrayList<Individuo>();
 	}
 
 	public ArrayList<Individuo> getIndividuos() {
@@ -40,5 +40,13 @@ public class Poblacion {
 
 	public void setNumeroHijos(int numeroHijos) {
 		this.numeroHijos = numeroHijos;
+	}
+	public String mostrarIndividuos() {
+		StringBuilder resultado = new StringBuilder();
+		for (int i = 0; i < individuos.size(); i++) {
+			resultado.append("Individuo: " + individuos.get(i).getIndividuo()+"    "
+							+"Adaptacion: "+individuos.get(i).getAdaptacion()+"\n");
+		}
+		return resultado.toString();
 	}
 }
