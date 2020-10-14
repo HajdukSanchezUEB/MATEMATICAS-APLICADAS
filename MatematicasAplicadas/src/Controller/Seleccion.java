@@ -41,21 +41,21 @@ public class Seleccion {
 		for (int i = 0; i < poblacion.getNumeroHijos(); i++) {
 			Random numAleatorio = new Random();
 			double aleatorio = numAleatorio.nextDouble();
-																							// y
+			System.out.println(aleatorio);
 			for (int j = 0; j < poblacion.getIndividuos().size(); j++) {
 				if (j == 0) {
 					if (aleatorio > 0 && aleatorio < listaRangos[j]) {
-						poblacionSeleccionada.getIndividuos().add(poblacion.getIndividuos().get(i));
+						poblacionSeleccionada.getIndividuos().add(poblacion.getIndividuos().get(j));
 						break;
 					}
 				} else if (j == poblacion.getIndividuos().size()) {
 					if (aleatorio > listaRangos[j-1] && aleatorio < 1) {
-						poblacionSeleccionada.getIndividuos().add(poblacion.getIndividuos().get(i));
+						poblacionSeleccionada.getIndividuos().add(poblacion.getIndividuos().get(j));
 						break;
 					}
 				} else {
 					if (aleatorio > listaRangos[j-1] && aleatorio < listaRangos[j]) {
-						poblacionSeleccionada.getIndividuos().add(poblacion.getIndividuos().get(i));
+						poblacionSeleccionada.getIndividuos().add(poblacion.getIndividuos().get(j));
 						break;
 					}
 				}
