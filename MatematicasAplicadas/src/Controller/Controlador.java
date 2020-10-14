@@ -9,13 +9,35 @@ import Model.Individuo;
 import Model.Poblacion;
 import View.Ventanas;
 
+/**
+ * Este método conecta las operaciones de la vista con el modelo
+ *
+ */
 public class Controlador {
 
+	/**
+	 * Objeto del modelo
+	 */
 	private Poblacion poblacion;
+	/**
+	 * Objeto del modelo
+	 */
 	private Individuo individuo;
+	/**
+	 * Arreglo de tipo individuo
+	 */
 	private ArrayList<Individuo> listaIndividuos;
+	/**
+	 * Objeto del controlador
+	 */
 	private Seleccion seleccion;
+	/**
+	 * Objeto de la vista
+	 */
 	private Ventanas ventana;
+	/**
+	 * Icono de las ventanas de la vista
+	 */
 	private Icon icono;
 
 	public Controlador() {
@@ -26,13 +48,13 @@ public class Controlador {
 	}
 
 	/**
-	 * INicia el proceso de selección de la aplicación
+	 * Este método inicia el proceso de selección de la aplicación
 	 */
 	private void iniciarProceso() {
 		ventana.mostrarMensaje("Bienvenido al punto 4 del taller pre-parcial 2 de matemáticas aplicadas." + "\nA continuación ingrese los valores solicitados para realizar el proceso de algorítmos genéticos.", icono);
-		int tamPoblacion;
+		int aux = 0;
 		do {
-			tamPoblacion = Integer.parseInt(ventana.recibirValor("Ingrese el tamaño de la población (mínimo 5 individuos): "));
+			int tamPoblacion = Integer.parseInt(ventana.recibirValor("Ingrese el tamaño de la población (mínimo 5 individuos): "));
 			if (tamPoblacion < 5) {
 				ventana.mostrarMensaje("Error..." + "\nEL número de individuso no puede ser menor a 5.", icono);
 			} else {
@@ -42,21 +64,26 @@ public class Controlador {
 					individuo = new Individuo((i + 1), adpatacion);
 					listaIndividuos.add(individuo);
 				}
-				int numeroHijos = Integer.parseInt(ventana.recibirValor("Ingrese el número de hijos que habrá: "));
-				poblacion = new Poblacion(listaIndividuos, tamPoblacion, numeroHijos);
-				seleccion = new Seleccion(poblacion);
-				metodoSeleccion();
+				int numeroHijos = Integer.parseInt(ventana.recibirValor("Ingrese el número de individuos que desea hallar: "));
+				if (numeroHijos > tamPoblacion) {
+					ventana.mostrarMensaje("El tamaño de los individuos que desea hallar no puede ser mayor a la población inicial\nIntente de nuevo...", icono);
+				} else {
+					poblacion = new Poblacion(listaIndividuos, tamPoblacion, numeroHijos);
+					seleccion = new Seleccion(poblacion);
+					metodoSeleccion();
+					aux = 1;
+				}
 			}
-		} while (tamPoblacion < 5);
+		} while (aux == 0);
 	}
 
 	/**
-	 * Selecciona el tipo de selección de los individuos
+	 * Este método escoge el tipo de selección de los individuos
 	 */
 	private void metodoSeleccion() {
 		int aux = 0;
 		do {
-			int metodo = Integer.parseInt(ventana.recibirValor("Ingrese el método de selección a utilizar: " + "\n 1. Selección por ruleta." + "\n 2. Selección por torneo determinista." + "\n 3. Selección por torneo probabilístico." + "\n 4. Selección por rstos."));
+			int metodo = Integer.parseInt(ventana.recibirValor("Ingrese el método de selección a utilizar: " + "\n 1. Selección por ruleta." + "\n 2. Selección por torneo determinista." + "\n 3. Selección por torneo probabilístico." + "\n 4. Selección por restos."));
 			if (metodo < 1 || metodo > 4) {
 				ventana.mostrarMensaje("Error...\nNo ingresó un método válido. Intente de nuevo.", icono);
 			} else {
@@ -86,13 +113,13 @@ public class Controlador {
 	}
 
 	/**
-	 * Muestra el resultado del algorítmo genético
+	 * Este método muestra el resultado del algorítmo genético
 	 * 
 	 * @param metodo - método de selección de los individuos
 	 */
 	private void mostrarIndividuosSeleccionado(String metodo) {
 		ventana.mostrarMensaje("Los valores ingresados fueron:" + "\n Tamaño de la población: " + poblacion.getTamanoPoblacion() + "\n Número de hijos: " + poblacion.getNumeroHijos() + "\n Método de selección: " + metodo, icono);
-		ventana.mostrarMensaje("Los indivudos seleccionados fueron: " + "\n" + seleccion.poblacionSeleccionada.getIndividuos(), icono);
+		ventana.mostrarMensaje("Los indivudos seleccionados fueron: " + "\n" + seleccion.poblacionSeleccionada.mostrarIndividuos(), icono);
 	}
 
 }

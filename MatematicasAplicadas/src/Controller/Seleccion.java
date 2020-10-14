@@ -1,31 +1,85 @@
 package Controller;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import Model.Individuo;
 import Model.Poblacion;
 
+/**
+ * Esta clase tiene los métodos de selección de individuos
+ *
+ */
 public class Seleccion {
 
+	/**
+	 * Objeto del modelo
+	 */
 	private Poblacion poblacion;
+	/**
+	 * Objeto del modelo para almacenar los individuos seleccionados
+	 */
 	public Poblacion poblacionSeleccionada;
 
+	/**
+	 * Constructor que inicializa la población inicial
+	 * 
+	 * @param poblacion - población inicial
+	 */
 	public Seleccion(Poblacion poblacion) {
 		this.poblacion = poblacion;
 		poblacionSeleccionada = new Poblacion();
 	}
 
 	/**
-	 * Método de selección por ruleta
+	 * Este método realiza la selección por ruleta
 	 */
 	public void ruleta() {
-//		for (int j = 0; j < poblacion.getPoblacionInicial().size(); j++) {
-//			poblacion.getPoblacionInicial().get(j).getValorIndividuo();						
-//		}
+		double listaRangos[] = new double[poblacion.getIndividuos().size()];
+		double listaProbabilidades[] = new double[poblacion.getIndividuos().size()];
+		int sumFuncion = 0;
+		for (int i = 0; i < poblacion.getIndividuos().size(); i++) {
+			Individuo inviduo = poblacion.getIndividuos().get(i);
+			sumFuncion += inviduo.getAdaptacion();
+		}
+		for (int i = 0; i < poblacion.getIndividuos().size(); i++) {
+			double operacion = (double) poblacion.getIndividuos().get(i).getAdaptacion() / sumFuncion;
+			listaProbabilidades[i] = operacion;
+		}
+		for (int i = 0; i < poblacion.getIndividuos().size(); i++) {
+			if (i == 0) {
+				listaRangos[i] = listaProbabilidades[i];
+			} else {
+				listaRangos[i] = listaProbabilidades[i] + listaRangos[i - 1];
+			}
+		}
+		for (int i = 0; i < poblacion.getNumeroHijos(); i++) {
+			Random numAleatorio = new Random();
+			double aleatorio = numAleatorio.nextDouble();
+			// y
+			for (int j = 0; j < poblacion.getIndividuos().size(); j++) {
+				if (j == 0) {
+					if (aleatorio > 0 && aleatorio < listaRangos[j]) {
+						poblacionSeleccionada.getIndividuos().add(poblacion.getIndividuos().get(i));
+						break;
+					}
+				} else if (j == poblacion.getIndividuos().size()) {
+					if (aleatorio > listaRangos[j - 1] && aleatorio < 1) {
+						poblacionSeleccionada.getIndividuos().add(poblacion.getIndividuos().get(i));
+						break;
+					}
+				} else {
+					if (aleatorio > listaRangos[j - 1] && aleatorio < listaRangos[j]) {
+						poblacionSeleccionada.getIndividuos().add(poblacion.getIndividuos().get(i));
+						break;
+					}
+				}
+			}
+		}
 	}
 
 	/**
-	 * Método de selección por torneo determinista
+	 * Este método realiza la selección por torneo determinista
 	 */
 	public void torneoDeterminista() {
 		ArrayList<Individuo> listaIndividuos = new ArrayList<Individuo>();
@@ -42,7 +96,7 @@ public class Seleccion {
 	}
 
 	/**
-	 * Selecciona el mejor hijo para el torneo determinista
+	 * Este método selecciona el mejor individuo para el torneo determinista
 	 */
 	private Individuo selecionarMejorHijo(ArrayList<Individuo> individuos) {
 		Individuo mejor = null;
@@ -55,14 +109,14 @@ public class Seleccion {
 	}
 
 	/**
-	 * Método de selección por torneo probabilístico
+	 * Este método realiza la selección por torneo probabilístico
 	 */
 	public void torneoProbabilistico() {
 
 	}
 
 	/**
-	 * Método de selección por restos
+	 * Este método realiza la selección por restos
 	 */
 	public void restos() {
 
