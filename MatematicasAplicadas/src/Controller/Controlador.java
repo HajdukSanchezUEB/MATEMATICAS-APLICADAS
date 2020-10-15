@@ -43,7 +43,6 @@ public class Controlador {
 	public Controlador() {
 		icono = new ImageIcon(getClass().getResource("/Imagenes/Icono_Emergentes.png")); // Icono para ventanas emergentes
 		ventana = new Ventanas();
-		listaIndividuos = new ArrayList<Individuo>();
 		iniciarProceso();
 	}
 
@@ -51,6 +50,7 @@ public class Controlador {
 	 * Este método inicia el proceso de selección de la aplicación
 	 */
 	private void iniciarProceso() {
+		listaIndividuos = new ArrayList<Individuo>();
 		ventana.mostrarMensaje("Bienvenido al punto 4 del taller pre-parcial 2 de matemáticas aplicadas." + "\nA continuación ingrese los valores solicitados para realizar el proceso de algorítmos genéticos.", icono);
 		int aux = 0;
 		do {
@@ -87,7 +87,6 @@ public class Controlador {
 			if (metodo < 1 || metodo > 4) {
 				ventana.mostrarMensaje("Error...\nNo ingresó un método válido. Intente de nuevo.", icono);
 			} else {
-				aux = 1;
 				String tipo = "";
 				switch (metodo) {
 				case 1:
@@ -108,8 +107,15 @@ public class Controlador {
 					break;
 				}
 				mostrarIndividuosSeleccionado(tipo);
+				int again = Integer.parseInt(ventana.recibirValor("¿ Desea realizar nuevamente el proceso de selección ? " + "\n 1. Si." + "\n 2. No "));
+				if (again != 1) {
+					aux = 1;
+				} else {
+					iniciarProceso();
+				}
 			}
 		} while (aux == 0);
+		ventana.mostrarMensaje("Integrantes del grupo: " + "\n Laura Virginia Peña Cabrera" + "\n Jozek Andrzej Hajduk Sánchez" + "\n Jorge Andres Rangel Zapata" + "\n Brian Gerald Riffo Tineo", icono);
 	}
 
 	/**
@@ -118,8 +124,21 @@ public class Controlador {
 	 * @param metodo - método de selección de los individuos
 	 */
 	private void mostrarIndividuosSeleccionado(String metodo) {
-		ventana.mostrarMensaje("Los valores ingresados fueron:" + "\n Tamaño de la población: " + poblacion.getTamanoPoblacion() + "\n Número de hijos: " + poblacion.getNumeroHijos() + "\n Método de selección: " + metodo, icono);
-		ventana.mostrarMensaje("Los indivudos seleccionados fueron: " + "\n" + seleccion.poblacionSeleccionada.mostrarIndividuos(), icono);
+		int numHijos = poblacion.getNumeroHijos();
+		ventana.mostrarMensaje("Los valores ingresados fueron:" + "\n Tamaño de la población: " + poblacion.getTamanoPoblacion() + "\n Número de hijos: " + numHijos + "\n Método de selección: " + metodo, icono);
+		ventana.mostrarMensaje("Los individuos ingresados son:\n" + poblacion.mostrarIndividuos(), icono);
+		String mensaje = "Los individuos seleccionados por el método " + metodo + " fueron: \n";
+		int tam = seleccion.poblacionSeleccionada.getIndividuos().size();
+		if (tam == 0) {
+			mensaje += "Ninguno de los individuos resulto apto para generar desendencia.";
+		} else {
+			if (tam != numHijos) {
+				mensaje += seleccion.poblacionSeleccionada.mostrarIndividuos() + "\nLos demas individuos no fueron aptos, tendrá que hallarlos utilizando otro método de selección.";
+			} else {
+				mensaje += seleccion.poblacionSeleccionada.mostrarIndividuos();
+			}
+		}
+		ventana.mostrarMensaje(mensaje, icono);
 	}
 
 }

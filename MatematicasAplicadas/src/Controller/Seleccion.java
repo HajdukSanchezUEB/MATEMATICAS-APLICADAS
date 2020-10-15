@@ -119,7 +119,25 @@ public class Seleccion {
 	 * Este método realiza la selección por restos
 	 */
 	public void restos() {
-
+		int tam = poblacion.getIndividuos().size();
+		int totalAdaptacion = 0;
+		int k = 4; // Entero k para la multiplicación
+		ArrayList<Individuo> indiSeleccionados = new ArrayList<Individuo>();
+		float pi[] = new float[tam];
+		for (int i = 0; i < tam; i++) {
+			totalAdaptacion += poblacion.getIndividuos().get(i).getAdaptacion();
+		}
+		for (int i = 0; i < tam; i++) {
+			float valorPi = (float) poblacion.getIndividuos().get(i).getAdaptacion() / totalAdaptacion; // Halla el valor de pi
+			pi[i] = valorPi;
+		}
+		for (int i = 0; i < tam; i++) {
+			float pik = pi[i] * k;
+			if ((int) pik != 0) {
+				indiSeleccionados.add(poblacion.getIndividuos().get(i));
+			}
+		}
+		poblacionSeleccionada.setIndividuos(indiSeleccionados);
 	}
 
 }
