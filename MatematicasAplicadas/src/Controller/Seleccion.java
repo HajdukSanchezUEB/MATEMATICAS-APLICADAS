@@ -41,7 +41,6 @@ public class Seleccion {
 		for (int i = 0; i < poblacion.getNumeroHijos(); i++) {
 			Random numAleatorio = new Random();
 			double aleatorio = numAleatorio.nextDouble();
-			System.out.println(aleatorio);
 			for (int j = 0; j < poblacion.getIndividuos().size(); j++) {
 				if (j == 0) {
 					if (aleatorio > 0 && aleatorio < listaRangos[j]) {
@@ -98,7 +97,8 @@ public class Seleccion {
 	 * Método de selección por torneo probabilístico
 	 */
 	public void torneoProbabilistico() {
-
+		
+		
 	}
 
 	/**
