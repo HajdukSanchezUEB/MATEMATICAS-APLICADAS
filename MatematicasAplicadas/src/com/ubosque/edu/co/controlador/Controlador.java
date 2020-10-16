@@ -1,13 +1,13 @@
-package Controller;
+package com.ubosque.edu.co.controlador;
 
 import java.util.ArrayList;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import Model.Individuo;
-import Model.Poblacion;
-import View.Ventanas;
+import com.ubosque.edu.co.modelo.Individuo;
+import com.ubosque.edu.co.modelo.Poblacion;
+import com.ubosque.edu.co.vista.Ventanas;
 
 /**
  * Este método conecta las operaciones de la vista con el modelo
@@ -50,17 +50,17 @@ public class Controlador {
 	 * Este método inicia el proceso de selección de la aplicación
 	 */
 	private void iniciarProceso() {
-		listaIndividuos = new ArrayList<Individuo>();
 		ventana.mostrarMensaje("Bienvenido al punto 4 del taller pre-parcial 2 de matemáticas aplicadas." + "\nA continuación ingrese los valores solicitados para realizar el proceso de algorítmos genéticos.", icono);
 		int aux = 0;
 		do {
+			listaIndividuos = new ArrayList<Individuo>();
 			int tamPoblacion = Integer.parseInt(ventana.recibirValor("Ingrese el tamaño de la población (mínimo 5 individuos): "));
 			if (tamPoblacion < 5) {
-				ventana.mostrarMensaje("Error..." + "\nEL número de individuso no puede ser menor a 5.", icono);
+				ventana.mostrarMensaje("Error..." + "\nEL número de individuos no puede ser menor a 5.", icono);
 			} else {
 				int adpatacion;
 				for (int i = 0; i < tamPoblacion; i++) {
-					adpatacion = Integer.parseInt(ventana.recibirValor("Ingrse la adaptación del individuo " + (i + 1) + ": "));
+					adpatacion = Integer.parseInt(ventana.recibirValor("Ingrese la adaptación del individuo " + (i + 1) + " / " + tamPoblacion + ": "));
 					individuo = new Individuo((i + 1), adpatacion);
 					listaIndividuos.add(individuo);
 				}
@@ -71,7 +71,7 @@ public class Controlador {
 					poblacion = new Poblacion(listaIndividuos, tamPoblacion, numeroHijos);
 					seleccion = new Seleccion(poblacion);
 					metodoSeleccion();
-					aux = 1;
+					break; // Termina el programa
 				}
 			}
 		} while (aux == 0);
@@ -126,7 +126,7 @@ public class Controlador {
 	private void mostrarIndividuosSeleccionado(String metodo) {
 		int numHijos = poblacion.getNumeroHijos();
 		ventana.mostrarMensaje("Los valores ingresados fueron:" + "\n Tamaño de la población: " + poblacion.getTamanoPoblacion() + "\n Número de hijos: " + numHijos + "\n Método de selección: " + metodo, icono);
-		ventana.mostrarMensaje("Los individuos ingresados son:\n" + poblacion.mostrarIndividuos(), icono);
+		ventana.mostrarMensaje("Los individuos ingresados por el usuario fueron:\n" + poblacion.mostrarIndividuos(), icono);
 		String mensaje = "Los individuos seleccionados por el método " + metodo + " fueron: \n";
 		int tam = seleccion.poblacionSeleccionada.getIndividuos().size();
 		if (tam == 0) {

@@ -1,4 +1,4 @@
-package Model;
+package com.ubosque.edu.co.modelo;
 
 /**
  * Esta clase posee los atributos de los individuos

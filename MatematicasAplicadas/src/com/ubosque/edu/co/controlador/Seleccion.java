@@ -1,10 +1,10 @@
-package Controller;
+package com.ubosque.edu.co.controlador;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import Model.Individuo;
-import Model.Poblacion;
+import com.ubosque.edu.co.modelo.Individuo;
+import com.ubosque.edu.co.modelo.Poblacion;
 
 /**
  * Esta clase tiene los métodos de selección de individuos
@@ -85,11 +85,11 @@ public class Seleccion {
 		ArrayList<Individuo> listaIndividuos = new ArrayList<Individuo>();
 		ArrayList<Individuo> listaMejoresIndividuos = new ArrayList<Individuo>();
 		for (int i = 0; i < poblacion.getNumeroHijos(); i++) { // Lo hace los número de hijos que se quieran obtener
-			for (int j = 0; j < 3; j++) {
+			for (int j = 0; j < 3; j++) { // Escoge grupos de 3 individuos aleatorios
 				int aleatorio = (int) ((Math.random() * poblacion.getTamanoPoblacion())); // Número aleatorio entre 0 y el tamaño de la población
 				listaIndividuos.add(poblacion.getIndividuos().get(aleatorio));
 			}
-			Individuo mejorIndividuo = selecionarMejorHijo(listaIndividuos);
+			Individuo mejorIndividuo = mejorHijoDeterminista(listaIndividuos);
 			listaMejoresIndividuos.add(mejorIndividuo);
 		}
 		poblacionSeleccionada.setIndividuos(listaMejoresIndividuos);
@@ -97,8 +97,11 @@ public class Seleccion {
 
 	/**
 	 * Este método selecciona el mejor individuo para el torneo determinista
+	 * 
+	 * @param individuos - lista con los tres individuos que se enfrentan
+	 * @return - individuo ganador
 	 */
-	private Individuo selecionarMejorHijo(ArrayList<Individuo> individuos) {
+	private Individuo mejorHijoDeterminista(ArrayList<Individuo> individuos) {
 		Individuo mejor = null;
 		for (int i = 0; i < individuos.size() - 1; i++) {
 			if (individuos.get(i).getAdaptacion() < individuos.get(i + 1).getAdaptacion()) {
@@ -112,7 +115,39 @@ public class Seleccion {
 	 * Este método realiza la selección por torneo probabilístico
 	 */
 	public void torneoProbabilistico() {
+		ArrayList<Individuo> listaIndividuos = new ArrayList<Individuo>();
+		ArrayList<Individuo> listaMejoresIndividuos = new ArrayList<Individuo>();
+		for (int i = 0; i < poblacion.getNumeroHijos(); i++) { // Lo hace los número de hijos que se quieran obtener
+			for (int j = 0; j < 2; j++) { // Escoge grupos de dos individuos aleatorios
+				int aleatorio = (int) ((Math.random() * poblacion.getTamanoPoblacion())); // Número aleatorio entre 0 y el tamaño de la población
+				listaIndividuos.add(poblacion.getIndividuos().get(aleatorio));
+			}
+			Individuo mejorIndividuo = mejorHijoProbabilistico(listaIndividuos);
+			listaMejoresIndividuos.add(mejorIndividuo);
+		}
+		poblacionSeleccionada.setIndividuos(listaMejoresIndividuos);
+	}
 
+	/**
+	 * Este método selecciona al mejor entre dos individuos, si un número aleatorio entre 0 y 1 supera un parámtero establecido
+	 * 
+	 * @param individuos - lista con los dos individuos que van a torneo
+	 * @return - individuo ganador
+	 */
+	private Individuo mejorHijoProbabilistico(ArrayList<Individuo> individuos) {
+		double parametro = 0.5;
+		int aleatorio = (int) ((Math.random() * poblacion.getTamanoPoblacion())); // Número aleatorio entre 0 y 1
+		Individuo ganador = individuos.get(0);
+		if (aleatorio > parametro) { // Si es así gana el individuo de mayor valor
+			if (individuos.get(1).getAdaptacion() > ganador.getAdaptacion()) {
+				ganador = individuos.get(1);
+			}
+		} else {
+			if (individuos.get(1).getAdaptacion() < ganador.getAdaptacion()) {
+				ganador = individuos.get(1);
+			}
+		}
+		return ganador;
 	}
 
 	/**

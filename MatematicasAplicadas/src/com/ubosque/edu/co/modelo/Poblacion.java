@@ -1,4 +1,4 @@
-package Model;
+package com.ubosque.edu.co.modelo;
 
 import java.util.ArrayList;
 

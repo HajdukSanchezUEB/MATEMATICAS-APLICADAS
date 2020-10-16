@@ -1,4 +1,4 @@
-package View;
+package com.ubosque.edu.co.vista;
 
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
