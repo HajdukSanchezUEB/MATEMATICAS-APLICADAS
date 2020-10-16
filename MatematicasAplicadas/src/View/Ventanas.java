@@ -3,10 +3,14 @@ package View;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
+/**
+ * Esta clase muestra las ventanas con las que interactua el usuario
+ *
+ */
 public class Ventanas {
 
 	/**
-	 * Muestra mensaje por pantalla
+	 * Este método muestra mensaje por pantalla
 	 * 
 	 * @param mensaje - mensaje que se va a mostrar
 	 * @param icono   - icono de la ventana emergente
@@ -16,7 +20,7 @@ public class Ventanas {
 	}
 
 	/**
-	 * Recibe valor ingresado por el usuario
+	 * Este método recibe valor ingresado por el usuario
 	 * 
 	 * @param mensaje - mensaje que se va a mostar
 	 * @return - valor que ingreso el usuario
